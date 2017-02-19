@@ -3,7 +3,7 @@
 namespace ExpressionParser.Evaluator.Tokens
 {
     /// <summary>
-    ///     Represent a operator token
+    ///     Represents a operator token
     /// </summary>
     internal class OperatorToken : Token
     {

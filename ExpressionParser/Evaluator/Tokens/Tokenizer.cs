@@ -31,7 +31,7 @@ namespace ExpressionParser.Evaluator.Tokens
         public IEnumerable<Token> GetTokens()
         {
             var tokens = new Stack<Token>();
-            var input = _input.Get().Replace(" ", "");
+            var input = _input.Get();
             var index = 0;
 
             while (index < input.Length)
