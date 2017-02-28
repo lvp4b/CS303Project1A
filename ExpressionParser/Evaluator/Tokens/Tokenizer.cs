@@ -60,14 +60,9 @@ namespace ExpressionParser.Evaluator.Tokens
 
                 if (token == null)
                 {
-                    throw new InvalidOperationException($"Syntax error: '{input.Substring(index)}' is invalid");
+                    throw new InvalidOperationException($"Syntax error: '{input.Substring(index)}' is unknown");
                 }
-
-                if (token.Validate() != null)
-                {
-                    throw new InvalidOperationException($"Syntax error: '{token.Value}' is invalid: {token.Validate()}");
-                }
-
+                
                 tokens.Push(token);
                 index += token.Value.Length;
             }

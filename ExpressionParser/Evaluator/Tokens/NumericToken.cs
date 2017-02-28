@@ -14,31 +14,40 @@
             Value = int.Parse(value);
         }
 
+        /// <summary>
+        ///     Implicitly converts the specified boolean value into a numeric token
+        /// </summary>
         public static implicit operator NumericToken(bool value) => new NumericToken(value ? "1" : "0");
 
+        /// <summary>
+        ///     Implicitly converts the specified numeric token into a boolean value
+        /// </summary>
         public static implicit operator bool(NumericToken value) => value.Value != 0;
 
+        /// <summary>
+        ///     Implicitly converts the specified integer into a numeric token
+        /// </summary>
         public static implicit operator NumericToken(int value) => new NumericToken(value.ToString());
 
+        /// <summary>
+        ///     Implicitly converts the specified numeric token into an integer
+        /// </summary>
         public static implicit operator int(NumericToken token) => token.Value;
 
+        /// <summary>
+        ///     Compares two numeric tokens for equality
+        /// </summary>
         public static bool operator ==(NumericToken l, NumericToken r) => Equals(l, r);
 
+        /// <summary>
+        ///     Compares two numeric tokens for inequality
+        /// </summary>
         public static bool operator !=(NumericToken l, NumericToken r) => !Equals(l, r);
 
         /// <summary>
         ///     Gets the value of the numeric token
         /// </summary>
         public new int Value { get; }
-
-        /// <summary>
-        ///     Validates the token
-        /// </summary>
-        /// <returns>The reason the token is invalid, null if token is valid</returns>
-        internal override string Validate()
-        {
-            return null;
-        }
 
         protected bool Equals(NumericToken other) => Value == other.Value;
 
@@ -68,7 +77,7 @@
             /// <summary>
             ///     Gets the regular expression of the input consumed by this provider 
             /// </summary>
-            protected override string TokenPattern => "^[0-9]+$";
+            protected override string TokenPattern => "^-?[0-9]+$";
 
             /// <summary>
             ///     Creates a token for the specified value

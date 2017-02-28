@@ -19,13 +19,15 @@ namespace ExpressionParser.Evaluator.Operators
         /// <summary>
         ///     Represents the not operation
         /// </summary>
-        internal class NotOperator : LogicalOperator
+        internal class NotOperator : Operator
         {
             public override string Symbol => "!";
 
             public override int Precedence => 8;
 
-            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l >= r;
+            protected override int Operands => 1;
+
+            protected override NumericToken Evaluate(NumericToken[] operands) => !operands[0];
         }
 
         /// <summary>

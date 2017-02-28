@@ -16,15 +16,6 @@ namespace ExpressionParser.Evaluator.Tokens
         }
 
         /// <summary>
-        ///     Validates the token
-        /// </summary>
-        /// <returns>The reason the token is invalid, null if token is valid</returns>
-        internal override string Validate()
-        {
-            return Regex.IsMatch(Value, Provider.Pattern) ? null : $"{this} is not valid whitespace";
-        }
-
-        /// <summary>
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>

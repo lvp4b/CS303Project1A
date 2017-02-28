@@ -18,17 +18,11 @@ namespace ExpressionParser.Evaluator.Tokens
         {
             Value = value;
         }
-
-        /// <summary>
-        ///     Validates the token
-        /// </summary>
-        /// <returns>The reason the token is invalid, null if token is valid</returns>
-        internal override string Validate() => null;
-
+        
         /// <summary>
         ///     Gets the value of the operator token
         /// </summary>
-        public new Operator Value {get;}
+        public new Operator Value { get; }
 
         /// <summary>
         ///     Returns a string that represents the current object
@@ -51,7 +45,7 @@ namespace ExpressionParser.Evaluator.Tokens
             {
                 _operators = operators.ToDictionary(@operator => @operator.Symbol);
             }
-            
+
             /// <summary>
             ///     Gets the regular expression of the input consumed by this provider 
             /// </summary>

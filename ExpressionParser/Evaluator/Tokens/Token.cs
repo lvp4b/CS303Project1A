@@ -23,12 +23,6 @@ namespace ExpressionParser.Evaluator.Tokens
         public string Value { get; }
 
         /// <summary>
-        ///     Validates the token
-        /// </summary>
-        /// <returns>The reason the token is invalid, null if token is valid</returns>
-        internal abstract string Validate();
-
-        /// <summary>
         ///     Provides the token for a value
         /// </summary>
         internal interface IProvider
