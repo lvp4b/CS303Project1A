@@ -2,7 +2,8 @@
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using ExpressionParser.Evaluator.InfixToPrefix;
+using ExpressionParser.Evaluator;
+using ExpressionParser.Evaluator.InfixToPostfix;
 using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser
@@ -16,14 +17,14 @@ namespace ExpressionParser
                 container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
                 container.Install(FromAssembly.This());
 
-                var converter = container.Resolve<IInfixConverter>();
+                var evaluator = container.Resolve<IEvaluator>();
                 var tokenizer = container.Resolve<ITokenizer>();
 
-                Console.WriteLine($"[{string.Join(", ", converter.Convert(tokenizer.GetTokens()))}]");
+                Console.WriteLine($"[{string.Join(", ", evaluator.Evaluate(tokenizer.GetTokens()))}]");
                 Console.ReadLine();
                 
                 container.Release(tokenizer);
-                container.Release(converter);
+                container.Release(evaluator);
             }
         }
     }

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using ExpressionParser.Evaluator.Tokens;
 
-namespace ExpressionParser.Evaluator.InfixToPrefix
+namespace ExpressionParser.Evaluator.InfixToPostfix
 {
     /// <summary>
-    ///     Converts infix to prefix notation
+    ///     Converts infix to postfix notation
     /// </summary>
     public interface IInfixConverter
     {
         /// <summary>
-        ///     Converts from infix notation to prefix notation
+        ///     Converts from infix notation to postfix notation
         /// </summary>
         /// <param name="infixTokens"></param>
         /// <returns></returns>

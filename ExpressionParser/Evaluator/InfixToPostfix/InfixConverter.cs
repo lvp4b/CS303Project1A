@@ -2,14 +2,19 @@
 using System.Linq;
 using ExpressionParser.Evaluator.Tokens;
 
-namespace ExpressionParser.Evaluator.InfixToPrefix
+namespace ExpressionParser.Evaluator.InfixToPostfix
 {
     public class InfixConverter : IInfixConverter
     {
+        /// <summary>
+        ///     Converts from infix notation to postfix notation
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
         public IEnumerable<Token> Convert(IEnumerable<Token> tokens)
         {
             var infixTokens = new Stack<Token>(tokens);
-            var prefixTokens = new Stack<Token>();
+            var postfixTokens = new List<Token>();
             var operators = new Stack<OperatorToken>();
 
             while (infixTokens.Any())
@@ -17,14 +22,14 @@ namespace ExpressionParser.Evaluator.InfixToPrefix
                 var token = infixTokens.Pop();
                 if (token is NumericToken)
                 {
-                    prefixTokens.Push(token);
+                    postfixTokens.Add(token);
                 }
                 else if (token is OperatorToken)
                 {
                     var operatorToken = (OperatorToken)token;
                     while (operators.Any() && operatorToken.Value.Precedence <= operators.Peek().Value.Precedence)
                     {
-                        prefixTokens.Push(operators.Pop());
+                        postfixTokens.Add(operators.Pop());
                     }
                     operators.Push(operatorToken);
                 }
@@ -32,9 +37,9 @@ namespace ExpressionParser.Evaluator.InfixToPrefix
             }
             while (operators.Any())
             {
-                prefixTokens.Push(operators.Pop());
+                postfixTokens.Add(operators.Pop());
             }
-            return prefixTokens;
+            return postfixTokens;
         }
     }
 }

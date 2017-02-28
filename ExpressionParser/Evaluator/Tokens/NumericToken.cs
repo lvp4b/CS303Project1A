@@ -11,7 +11,33 @@
         /// <param name="value">The value of the numeric token</param>
         public NumericToken(string value) : base(value)
         {
+            Value = int.Parse(value);
         }
+
+        public static implicit operator NumericToken(bool value)
+        {
+            return new NumericToken(value ? "1" : "0");
+        }
+
+        public static implicit operator bool(NumericToken value)
+        {
+            return value.Value != 0;
+        }
+
+        public static implicit operator NumericToken(int value)
+        {
+            return new NumericToken(value.ToString());
+        }
+        
+        public static implicit operator int(NumericToken token)
+        {
+            return token.Value;
+        }
+
+        /// <summary>
+        ///     Gets the value of the numeric token
+        /// </summary>
+        public new int Value { get; }
 
         /// <summary>
         ///     Validates the token
@@ -19,11 +45,6 @@
         /// <returns>The reason the token is invalid, null if token is valid</returns>
         internal override string Validate()
         {
-            int value;
-            if (!int.TryParse(Value, out value))
-            {
-                return $"{this} is out of range";
-            }
             return null;
         }
 

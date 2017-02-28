@@ -2,10 +2,10 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace ExpressionParser.Evaluator.InfixToPrefix
+namespace ExpressionParser.Evaluator.InfixToPostfix
 {
     /// <summary>
-    ///     Installs the infix to prefix converter into the application
+    ///     Installs the infix to postfix converter into the application
     /// </summary>
     public class InfixInstaller : IWindsorInstaller
     {
