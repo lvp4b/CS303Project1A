@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using ExpressionParser.Evaluator.Operators;
 
 namespace ExpressionParser.Evaluator.Tokens
 {
@@ -11,18 +14,21 @@ namespace ExpressionParser.Evaluator.Tokens
         ///     Instantiates a operator token using the specified value
         /// </summary>
         /// <param name="value">The value of the operator token</param>
-        public OperatorToken(string value) : base(value)
+        public OperatorToken(Operator value) : base(value.Symbol)
         {
+            Value = value;
         }
 
         /// <summary>
         ///     Validates the token
         /// </summary>
         /// <returns>The reason the token is invalid, null if token is valid</returns>
-        internal override string Validate()
-        {
-            return Regex.IsMatch(Value, Provider.Pattern) ? null : $"{this} is not a valid operator";
-        }
+        internal override string Validate() => null;
+
+        /// <summary>
+        ///     Gets the value of the operator token
+        /// </summary>
+        public new Operator Value {get;}
 
         /// <summary>
         ///     Returns a string that represents the current object
@@ -35,19 +41,28 @@ namespace ExpressionParser.Evaluator.Tokens
         /// </summary>
         internal class Provider : Provider<OperatorToken>
         {
-            internal const string Pattern = @"^([-+*/()]|--|\+\+)$";
+            private readonly IDictionary<string, Operator> _operators;
 
+            /// <summary>
+            ///     Instantiates the operator token provider that supports the specified operators
+            /// </summary>
+            /// <param name="operators">The operators to support with this provider</param>
+            public Provider(IEnumerable<Operator> operators)
+            {
+                _operators = operators.ToDictionary(@operator => @operator.Symbol);
+            }
+            
             /// <summary>
             ///     Gets the regular expression of the input consumed by this provider 
             /// </summary>
-            protected override string TokenPattern => Pattern;
+            protected override string TokenPattern => $"^({string.Join("|", _operators.Keys.Select(Regex.Escape))})$";
 
             /// <summary>
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
             /// <returns>A new token for the specified value</returns>
-            protected override OperatorToken CreateToken(string value) => new OperatorToken(value);
+            protected override OperatorToken CreateToken(string value) => new OperatorToken(_operators[value]);
         }
     }
 }

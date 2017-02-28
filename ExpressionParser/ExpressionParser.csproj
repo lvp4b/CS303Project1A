@@ -55,6 +55,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluator\Evaluator.cs" />
+    <Compile Include="Evaluator\EvaluatorInstaller.cs" />
+    <Compile Include="Evaluator\IEvaluator.cs" />
+    <Compile Include="Evaluator\InfixToPrefix\IInfixConverter.cs" />
+    <Compile Include="Evaluator\InfixToPrefix\InfixInstaller.cs" />
+    <Compile Include="Evaluator\InfixToPrefix\InfixConverter.cs" />
+    <Compile Include="Evaluator\Operators\ArithmeticOperator.cs" />
+    <Compile Include="Evaluator\Operators\ComparisonOperator.cs" />
+    <Compile Include="Evaluator\Operators\LogicalOperator.cs" />
+    <Compile Include="Evaluator\Operators\Operator.cs" />
+    <Compile Include="Evaluator\Operators\OperatorInstaller.cs" />
+    <Compile Include="Evaluator\Operators\PostfixOperator.cs" />
+    <Compile Include="Evaluator\Operators\PrefixOperator.cs" />
     <Compile Include="Evaluator\Tokens\ITokenizer.cs" />
     <Compile Include="Evaluator\Tokens\NumericToken.cs" />
     <Compile Include="Evaluator\Tokens\WhitespaceToken.cs" />
@@ -72,9 +85,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Evaluator\InfixToPostfix\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

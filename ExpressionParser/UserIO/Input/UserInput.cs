@@ -11,9 +11,6 @@ namespace ExpressionParser.UserIO.Input
         ///     Gets the input expression
         /// </summary>
         /// <returns>The input expression</returns>
-        public string Get()
-        {
-            return Console.ReadLine();
-        }
+        public string Get() => Console.ReadLine();
     }
 }
