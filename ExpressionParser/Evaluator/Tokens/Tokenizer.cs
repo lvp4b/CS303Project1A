@@ -46,11 +46,11 @@ namespace ExpressionParser.Evaluator.Tokens
                     {
                         token = matchingProviders.Single().CreateToken(value);
                     }
-                    else if (matchingProviders.Count == 0)
+                    else if (matchingProviders.Count == 0 && token != null)
                     {
                         break;
                     }
-                    else
+                    else if(matchingProviders.Count > 1)
                     {
                         throw new InvalidOperationException($"Input subexpression '{value}' is ambiguous");
                     }

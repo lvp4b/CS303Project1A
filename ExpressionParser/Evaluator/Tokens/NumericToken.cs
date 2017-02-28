@@ -14,25 +14,17 @@
             Value = int.Parse(value);
         }
 
-        public static implicit operator NumericToken(bool value)
-        {
-            return new NumericToken(value ? "1" : "0");
-        }
+        public static implicit operator NumericToken(bool value) => new NumericToken(value ? "1" : "0");
 
-        public static implicit operator bool(NumericToken value)
-        {
-            return value.Value != 0;
-        }
+        public static implicit operator bool(NumericToken value) => value.Value != 0;
 
-        public static implicit operator NumericToken(int value)
-        {
-            return new NumericToken(value.ToString());
-        }
-        
-        public static implicit operator int(NumericToken token)
-        {
-            return token.Value;
-        }
+        public static implicit operator NumericToken(int value) => new NumericToken(value.ToString());
+
+        public static implicit operator int(NumericToken token) => token.Value;
+
+        public static bool operator ==(NumericToken l, NumericToken r) => Equals(l, r);
+
+        public static bool operator !=(NumericToken l, NumericToken r) => !Equals(l, r);
 
         /// <summary>
         ///     Gets the value of the numeric token
@@ -47,6 +39,20 @@
         {
             return null;
         }
+
+        protected bool Equals(NumericToken other) => Value == other.Value;
+
+        /// <summary>
+        ///     Determines whether the specified object is equal to the current object
+        /// </summary>
+        /// <returns>true if the specified object  is equal to the current object; otherwise, false</returns>
+        /// <param name="obj">The object to compare with the current object</param>
+        public override bool Equals(object obj) => Equals(obj as NumericToken);
+
+        /// <summary>
+        ///     Serves as the default hash function</summary>
+        /// <returns>A hash code for the current object</returns>
+        public override int GetHashCode() => Value;
 
         /// <summary>
         ///     Returns a string that represents the current object

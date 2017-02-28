@@ -63,5 +63,29 @@ namespace ExpressionParser.Evaluator.Operators
 
             protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l <= r;
         }
+
+        /// <summary>
+        ///     Represents the equals operation
+        /// </summary>
+        internal class EqualityOperator : ComparisonOperator
+        {
+            public override string Symbol => "==";
+
+            public override int Precedence => 3;
+
+            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l == r;
+        }
+
+        /// <summary>
+        ///     Represents the not equals operation
+        /// </summary>
+        internal class InequalityOperator : ComparisonOperator
+        {
+            public override string Symbol => "!=";
+
+            public override int Precedence => 3;
+
+            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l != r;
+        }
     }
 }
