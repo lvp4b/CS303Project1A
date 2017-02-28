@@ -8,17 +8,19 @@ namespace ExpressionParser.Evaluator
     internal class Evaluator : IEvaluator
     {
         private readonly IInfixConverter _converter;
+        private readonly ITokenizer _tokenizer;
 
-        public Evaluator(IInfixConverter converter)
+        public Evaluator(IInfixConverter converter, ITokenizer tokenizer)
         {
             _converter = converter;
+            _tokenizer = tokenizer;
         }
 
-        public int Evaluate(IEnumerable<Token> infixTokens)
+        public int Evaluate(string expression)
         {
             var tokens = new Stack<Token>();
 
-            foreach (var token in _converter.Convert(infixTokens))
+            foreach (var token in _converter.Convert(_tokenizer.GetTokens(expression)))
             {
                 if (token is NumericToken)
                 {

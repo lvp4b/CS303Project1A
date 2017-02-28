@@ -5,6 +5,6 @@ namespace ExpressionParser.Evaluator
 {
     public interface IEvaluator
     {
-        int Evaluate(IEnumerable<Token> infixTokens);
+        int Evaluate(string expression);
     }
 }

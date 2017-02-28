@@ -76,9 +76,6 @@
     <Compile Include="Evaluator\Tokens\TokensInstaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserIO\Input\IInput.cs" />
-    <Compile Include="UserIO\Input\InputInstaller.cs" />
-    <Compile Include="UserIO\Input\UserInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

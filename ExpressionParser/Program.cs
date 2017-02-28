@@ -3,8 +3,6 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using ExpressionParser.Evaluator;
-using ExpressionParser.Evaluator.InfixToPostfix;
-using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser
 {
@@ -18,12 +16,10 @@ namespace ExpressionParser
                 container.Install(FromAssembly.This());
 
                 var evaluator = container.Resolve<IEvaluator>();
-                var tokenizer = container.Resolve<ITokenizer>();
 
-                Console.WriteLine($"[{string.Join(", ", evaluator.Evaluate(tokenizer.GetTokens()))}]");
+                Console.WriteLine($"[{string.Join(", ", evaluator.Evaluate(Console.ReadLine()))}]");
                 Console.ReadLine();
                 
-                container.Release(tokenizer);
                 container.Release(evaluator);
             }
         }
