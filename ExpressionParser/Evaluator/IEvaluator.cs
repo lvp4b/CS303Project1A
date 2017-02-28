@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using ExpressionParser.Evaluator.Tokens;
-
-namespace ExpressionParser.Evaluator
+﻿namespace ExpressionParser.Evaluator
 {
     public interface IEvaluator
     {

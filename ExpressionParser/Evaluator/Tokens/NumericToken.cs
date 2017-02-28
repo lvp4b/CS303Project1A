@@ -77,7 +77,7 @@
             /// <summary>
             ///     Gets the regular expression of the input consumed by this provider 
             /// </summary>
-            protected override string TokenPattern => "^-?[0-9]+$";
+            protected override string TokenPattern => "^[0-9]+$";
 
             /// <summary>
             ///     Creates a token for the specified value

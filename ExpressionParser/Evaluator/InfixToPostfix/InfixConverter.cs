@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpressionParser.Evaluator.Tokens;
 
@@ -15,7 +16,7 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
         {
             var infixTokens = new Stack<Token>(tokens);
             var postfixTokens = new List<Token>();
-            var operators = new Stack<OperatorToken>();
+            var operators = new Stack<Token>();
 
             while (infixTokens.Any())
             {
@@ -27,18 +28,43 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
                 else if (token is OperatorToken)
                 {
                     var operatorToken = (OperatorToken)token;
-                    while (operators.Any() && operatorToken.Value.Precedence <= operators.Peek().Value.Precedence)
+                    while (operators.Any() && operatorToken.Value.Precedence
+                        <= (operators.Peek() as OperatorToken)?.Value.Precedence)
                     {
                         postfixTokens.Add(operators.Pop());
                     }
                     operators.Push(operatorToken);
                 }
-                // parenthesis
+                else if (token is ParenthesisToken)
+                {
+                    var parenthesis = (ParenthesisToken) token;
+                    switch (parenthesis.Value)
+                    {
+                        case ParenthesisToken.Direction.Opening:
+                            operators.Push(parenthesis);
+                            break;
+                        case ParenthesisToken.Direction.Closing:
+                            while (operators.Any() &&
+                                   (operators.Peek() as ParenthesisToken)?.Value != ParenthesisToken.Direction.Opening)
+                            {
+                                postfixTokens.Add(operators.Pop());
+                            }
+                            operators.Pop();
+                            break;
+                    }
+                }
             }
+
             while (operators.Any())
             {
-                postfixTokens.Add(operators.Pop());
+                var token = operators.Pop();
+                if (token is ParenthesisToken)
+                {
+                    throw new Exception("Mismatched parenthesis");
+                }
+                postfixTokens.Add(token);
             }
+
             return postfixTokens;
         }
     }

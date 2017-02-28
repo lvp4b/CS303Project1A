@@ -14,13 +14,13 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <param name="value">The value of the token</param>
         internal Token(string value)
         {
-            Value = value;
+            Length = value.Length;
         }
 
         /// <summary>
-        ///     Gets the value of the token
+        ///     Gets the length, in characters of the token
         /// </summary>
-        public string Value { get; }
+        public int Length { get; }
 
         /// <summary>
         ///     Provides the token for a value

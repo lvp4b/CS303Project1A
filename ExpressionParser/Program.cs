@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using ExpressionParser.Evaluator;
-using ExpressionParser.Evaluator.InfixToPostfix;
-using ExpressionParser.Evaluator.Operators;
-using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser
 {

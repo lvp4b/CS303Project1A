@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ExpressionParser.Evaluator.InfixToPostfix;
 using ExpressionParser.Evaluator.Tokens;
 

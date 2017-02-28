@@ -69,6 +69,7 @@
     <Compile Include="Evaluator\Operators\PrefixOperator.cs" />
     <Compile Include="Evaluator\Tokens\ITokenizer.cs" />
     <Compile Include="Evaluator\Tokens\NumericToken.cs" />
+    <Compile Include="Evaluator\Tokens\ParenthesisToken.cs" />
     <Compile Include="Evaluator\Tokens\WhitespaceToken.cs" />
     <Compile Include="Evaluator\Tokens\OperatorToken.cs" />
     <Compile Include="Evaluator\Tokens\Token.cs" />

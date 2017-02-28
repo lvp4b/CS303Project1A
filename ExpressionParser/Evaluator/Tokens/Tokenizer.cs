@@ -39,7 +39,7 @@ namespace ExpressionParser.Evaluator.Tokens
                 }
 
                 tokens.Push(token);
-                index += token.Value.Length;
+                index += token.Length;
             }
 
             return tokens;

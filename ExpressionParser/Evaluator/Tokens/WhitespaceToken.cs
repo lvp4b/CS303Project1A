@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace ExpressionParser.Evaluator.Tokens
+﻿namespace ExpressionParser.Evaluator.Tokens
 {
     /// <summary>
     ///     Represents a whitespace token
@@ -19,7 +17,7 @@ namespace ExpressionParser.Evaluator.Tokens
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => $"WhitespaceToken[{Value}]";
+        public override string ToString() => "WhitespaceToken";
 
         /// <summary>
         ///     Provides whitespace tokens

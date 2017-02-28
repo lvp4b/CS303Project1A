@@ -22,7 +22,7 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <summary>
         ///     Gets the value of the operator token
         /// </summary>
-        public new Operator Value { get; }
+        public Operator Value { get; }
 
         /// <summary>
         ///     Returns a string that represents the current object
