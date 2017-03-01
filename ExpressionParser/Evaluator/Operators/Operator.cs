@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using ExpressionParser.Evaluator.Tokens;
+﻿using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser.Evaluator.Operators
 {
+    /// <summary>
+    ///     Represents an operator
+    /// </summary>
     internal abstract class Operator
     {
         /// <summary>
@@ -19,28 +21,13 @@ namespace ExpressionParser.Evaluator.Operators
         ///     Gets the number of operands used by the operator
         /// </summary>
         public abstract int Operands { get; }
-
-        /// <summary>
-        ///     Evaluates this operator using the specified operands
-        /// </summary>
-        /// <param name="operands">The operands stack</param>
-        /// <returns>The result of the operation</returns>
-        internal NumericToken Evaluate(Stack<Token> operands)
-        {
-            var arguments = new NumericToken[Operands];
-            for (var i = 0; i < Operands; i++)
-            {
-                arguments[i] = (NumericToken) operands.Pop();
-            }
-            return Evaluate(arguments);
-        }
-
+        
         /// <summary>
         ///     Evaluates this operator using the specified operands
         /// </summary>
         /// <param name="operands">The operands for this operator</param>
         /// <returns>The result of the operation</returns>
-        protected abstract NumericToken Evaluate(NumericToken[] operands);
+        internal abstract NumericToken Evaluate(NumericToken[] operands);
 
         /// <summary>
         ///     Returns a string that represents the current object.

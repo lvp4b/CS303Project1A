@@ -1,5 +1,4 @@
-﻿using System;
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
+﻿using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using ExpressionParser.Evaluator;
@@ -28,16 +27,15 @@ namespace ExpressionParser.Test
             Assert.AreEqual(expected, _evaluator.Evaluate(expression));
         }
 
-        private void TestFailure(string expression, string message)
+        private void TestFailure(string expression)
         {
             try
             {
                 var result = _evaluator.Evaluate(expression);
                 Assert.Fail($"'{expression}' evaluated to {result}");
             }
-            catch (Exception e)
+            catch (EvaluationException)
             {
-                Assert.AreEqual(message, e.Message);
             }
         }
 
@@ -150,7 +148,7 @@ namespace ExpressionParser.Test
         public void DecrementNegative() => Test("---4", -5);
 
         [TestMethod]
-        public void EmptyString() => Test("", 0);
+        public void EmptyString() => TestFailure("");
 
         [TestMethod]
         public void SubtractionVsNegation()
@@ -183,37 +181,37 @@ namespace ExpressionParser.Test
         [TestMethod]
         public void CantStartClosing()
         {
-            TestFailure(")3+2", "Expression can't start with a closing parenthesis @ char: 0");
+            TestFailure(")3+2");
         }
 
         [TestMethod]
         public void CantStartBinary()
         {
-            TestFailure("<3+2", "Expression can't start with a binary operator @ char: 0");
+            TestFailure("<3+2");
         }
 
         [TestMethod]
         public void TwoBinaryOperatorsInARow()
         {
-            TestFailure("3&&&& 5", "Two binary operators in a row @ char 3");
+            TestFailure("3&&&& 5");
         }
         
         [TestMethod]
         public void TwoOperandsInARow()
         {
-            TestFailure("15+3 2", "Two operands in a row @ char 5");
+            TestFailure("15+3 2");
         }
 
         [TestMethod]
         public void UnaryFollowedByBinary()
         {
-            TestFailure("10+ ++<3", "A unary operand can't be followed by a binary operator @ char 6");
+            TestFailure("10+ ++<3");
         }
 
         [TestMethod]
         public void DivisionByZero()
         {
-            TestFailure("1/0", "Division by zero @ char 2");
+            TestFailure("1/0");
         }
     }
 }

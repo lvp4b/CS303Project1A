@@ -9,7 +9,8 @@
         ///     Instantiates a whitespace token using the specified value
         /// </summary>
         /// <param name="value">The value of the whitespace token</param>
-        public WhitespaceToken(string value) : base(value)
+        /// <param name="index">The 0-based index in the expression of the first character of the token</param>
+        public WhitespaceToken(string value, int index) : base(value.Length, index)
         {
         }
 
@@ -35,8 +36,9 @@
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            protected override WhitespaceToken CreateToken(string value) => new WhitespaceToken(value);
+            protected override WhitespaceToken CreateToken(string value, int index) => new WhitespaceToken(value, index);
         }
     }
 }

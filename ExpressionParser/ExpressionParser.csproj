@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluator\EvaluationException.cs" />
     <Compile Include="Evaluator\Evaluator.cs" />
     <Compile Include="Evaluator\EvaluatorInstaller.cs" />
     <Compile Include="Evaluator\IEvaluator.cs" />

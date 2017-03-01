@@ -14,7 +14,8 @@ namespace ExpressionParser.Evaluator.Tokens
         ///     Instantiates a operator token using the specified value
         /// </summary>
         /// <param name="value">The value of the operator token</param>
-        public OperatorToken(Operator value) : base(value.Symbol)
+        /// <param name="index">The 0-based index in the expression of the first character of the token</param>
+        public OperatorToken(Operator value, int index) : base(value.Symbol.Length, index)
         {
             Value = value;
         }
@@ -66,8 +67,9 @@ namespace ExpressionParser.Evaluator.Tokens
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            protected override OperatorToken CreateToken(string value) => new OperatorToken(_operators[value]);
+            protected override OperatorToken CreateToken(string value, int index) => new OperatorToken(_operators[value], index);
         }
     }
 }

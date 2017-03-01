@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ExpressionParser.Evaluator.Tokens;
 
@@ -49,6 +48,12 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
                             {
                                 postfixTokens.Add(operators.Pop());
                             }
+
+                            if (!operators.Any())
+                            {
+                                throw new EvaluationException($"Unmatched closing parenthesis @ char: {token.Index}");
+                            }
+
                             operators.Pop();
                             break;
                     }
@@ -60,7 +65,7 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
                 var token = operators.Pop();
                 if (token is ParenthesisToken)
                 {
-                    throw new Exception("Mismatched parenthesis");
+                    throw new EvaluationException($"Unmatched opening parenthesis @ char: {token.Index}");
                 }
                 postfixTokens.Add(token);
             }

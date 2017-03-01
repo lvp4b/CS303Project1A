@@ -1,4 +1,5 @@
-﻿using ExpressionParser.Evaluator.Tokens;
+﻿using System;
+using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser.Evaluator.Operators
 {
@@ -10,8 +11,8 @@ namespace ExpressionParser.Evaluator.Operators
         public override int Operands => 2;
 
         protected abstract NumericToken Evaluate(NumericToken l, NumericToken r);
-        
-        protected override NumericToken Evaluate(NumericToken[] operands)
+
+        internal override NumericToken Evaluate(NumericToken[] operands)
         {
             return Evaluate(operands[1], operands[0]);
         }
@@ -37,7 +38,17 @@ namespace ExpressionParser.Evaluator.Operators
 
             public override int Precedence => 6;
 
-            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l / r;
+            protected override NumericToken Evaluate(NumericToken l, NumericToken r)
+            {
+                try
+                {
+                    return l/r;
+                }
+                catch (ArithmeticException e)
+                {
+                    throw new EvaluationException($"Division by zero @ char {r.Index}", e);
+                }
+            }
         }
 
         /// <summary>

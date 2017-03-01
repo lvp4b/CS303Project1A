@@ -1,4 +1,6 @@
-﻿namespace ExpressionParser.Evaluator.Tokens
+﻿using JetBrains.Annotations;
+
+namespace ExpressionParser.Evaluator.Tokens
 {
     /// <summary>
     ///     Represents a numeric token
@@ -8,8 +10,9 @@
         /// <summary>
         ///     Instantiates a numeric token using the specified value
         /// </summary>
+        /// <param name="index">The 0-based index in the expression of the first character of the token</param>
         /// <param name="value">The value of the numeric token</param>
-        public NumericToken(string value) : base(value)
+        public NumericToken(string value, [CanBeNull] int? index = null) : base(value.Length, index)
         {
             Value = int.Parse(value);
         }
@@ -83,8 +86,9 @@
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            protected override NumericToken CreateToken(string value) => new NumericToken(value);
+            protected override NumericToken CreateToken(string value, int index) => new NumericToken(value, index);
         }
     }
 }

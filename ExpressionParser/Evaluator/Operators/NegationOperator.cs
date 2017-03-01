@@ -15,6 +15,6 @@ namespace ExpressionParser.Evaluator.Operators
 
         public override string ToString() => "NEG";
 
-        protected override NumericToken Evaluate(NumericToken[] operands) => -operands[0];
+        internal override NumericToken Evaluate(NumericToken[] operands) => -operands[0];
     }
 }

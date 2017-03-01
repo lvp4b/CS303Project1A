@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 
 namespace ExpressionParser.Evaluator.Tokens
 {
@@ -11,15 +12,23 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <summary>
         ///     Instantiates a token using the specified value
         /// </summary>
-        /// <param name="value">The value of the token</param>
-        internal Token(string value)
+        /// <param name="length">The length of the token, in characters</param>
+        /// <param name="index">The 0-based index in the expression of the first character of the token</param>
+        internal Token(int length, int? index)
         {
-            Length = value.Length;
+            Index = index;
+            Length = length;
         }
+
+        /// <summary>
+        ///     Gets the 0-based character index of the start of the token in the expression
+        /// </summary>
+        public int? Index { get; }
 
         /// <summary>
         ///     Gets the length, in characters of the token
         /// </summary>
+        [CanBeNull]
         public int Length { get; }
 
         /// <summary>
@@ -38,8 +47,9 @@ namespace ExpressionParser.Evaluator.Tokens
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            Token CreateToken(string value);
+            Token CreateToken(string value, int index);
         }
 
         /// <summary>
@@ -73,15 +83,17 @@ namespace ExpressionParser.Evaluator.Tokens
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            protected abstract TToken CreateToken(string value);
+            protected abstract TToken CreateToken(string value, int index);
 
             /// <summary>
             ///     Creates a token for the specified value
             /// </summary>
             /// <param name="value">The value to create a token for</param>
+            /// <param name="index">The 0-based index in the expression of the first character of the token</param>
             /// <returns>A new token for the specified value</returns>
-            Token IProvider.CreateToken(string value) => CreateToken(value);
+            Token IProvider.CreateToken(string value, int index) => CreateToken(value, index);
         }
     }
 }

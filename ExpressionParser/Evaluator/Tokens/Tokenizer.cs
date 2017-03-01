@@ -56,7 +56,7 @@ namespace ExpressionParser.Evaluator.Tokens
                 var matchingProviders = _providers.Where(provider => provider.Matches(value)).ToList();
                 if (matchingProviders.Count == 1)
                 {
-                    token = matchingProviders.Single().CreateToken(value);
+                    token = matchingProviders.Single().CreateToken(value, index);
                 }
                 else if (matchingProviders.Count == 0 && token != null)
                 {
@@ -85,7 +85,7 @@ namespace ExpressionParser.Evaluator.Tokens
                     && !lastTokenIsNumeric)
                 {
                     result.Pop();
-                    result.Push(new OperatorToken(new NegationOperator()));
+                    result.Push(new OperatorToken(new NegationOperator(), token.Index.Value));
                 }
                 else if (token is NumericToken)
                 {

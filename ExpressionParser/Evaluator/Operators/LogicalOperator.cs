@@ -11,7 +11,7 @@ namespace ExpressionParser.Evaluator.Operators
 
         protected abstract NumericToken Evaluate(NumericToken l, NumericToken r);
 
-        protected override NumericToken Evaluate(NumericToken[] operands)
+        internal override NumericToken Evaluate(NumericToken[] operands)
         {
             return Evaluate(operands[1], operands[0]);
         }
@@ -27,7 +27,7 @@ namespace ExpressionParser.Evaluator.Operators
 
             public override int Operands => 1;
 
-            protected override NumericToken Evaluate(NumericToken[] operands) => !operands[0];
+            internal override NumericToken Evaluate(NumericToken[] operands) => !operands[0];
         }
 
         /// <summary>

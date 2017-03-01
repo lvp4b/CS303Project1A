@@ -13,8 +13,8 @@ namespace ExpressionParser.Evaluator.Operators
         public override int Precedence => 7;
 
         public override int Operands => 2;
-        
-        protected override NumericToken Evaluate(NumericToken[] operands)
+
+        internal override NumericToken Evaluate(NumericToken[] operands)
         {
             return (int) Math.Pow(operands[1], operands[0]);
         }
