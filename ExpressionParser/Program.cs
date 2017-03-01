@@ -6,6 +6,9 @@ using ExpressionParser.Evaluator;
 
 namespace ExpressionParser
 {
+    /// <summary>
+    ///     Read, evaluate, print, loop (REPL) for infix expressions
+    /// </summary>
     internal class Program
     {
         private static void Main()
@@ -16,12 +19,48 @@ namespace ExpressionParser
                 container.Install(FromAssembly.This());
 
                 var evaluator = container.Resolve<IEvaluator>();
-                
-                Console.WriteLine($"[{string.Join(", ", evaluator.Evaluate(Console.ReadLine()))}]");
-                Console.ReadLine();
+                ShowSamples(evaluator, "2+2^2*3", "(1+2)*3", "1+3 > 2");
+
+                // Check out the unit tests in ExpressionParser.Test
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write(">> ");
+                        var input = Console.ReadLine();
+                        if (input == "")
+                        {
+                            break;
+                        }
+
+                        Console.WriteLine(evaluator.Evaluate(input));
+                    }
+                    catch (EvaluationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
                 
                 container.Release(evaluator);
             }
+        }
+
+        private static void ShowSamples(IEvaluator evaluator, params string[] expressions)
+        {
+            Console.WriteLine("Sample expressions:");
+            foreach (var expression in expressions)
+            {
+                try
+                {
+                    Console.WriteLine($"{expression}: {evaluator.Evaluate(expression)}");
+                }
+                catch (EvaluationException e)
+                {
+                    Console.WriteLine($"{expression}: {e.Message}");
+                }
+            }
+            Console.WriteLine("More examples are in the ExpressionParser.Test project");
+            Console.WriteLine();
         }
     }
 }
