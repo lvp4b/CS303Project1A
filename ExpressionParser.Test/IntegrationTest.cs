@@ -179,39 +179,24 @@ namespace ExpressionParser.Test
         }
 
         [TestMethod]
-        public void CantStartClosing()
-        {
-            TestFailure(")3+2");
-        }
+        public void CantStartClosing() => TestFailure(")3+2");
 
         [TestMethod]
-        public void CantStartBinary()
-        {
-            TestFailure("<3+2");
-        }
+        public void CantStartBinary() => TestFailure("<3+2");
 
         [TestMethod]
-        public void TwoBinaryOperatorsInARow()
-        {
-            TestFailure("3&&&& 5");
-        }
-        
-        [TestMethod]
-        public void TwoOperandsInARow()
-        {
-            TestFailure("15+3 2");
-        }
+        public void TwoBinaryOperatorsInARow() => TestFailure("3&&&& 5");
 
         [TestMethod]
-        public void UnaryFollowedByBinary()
-        {
-            TestFailure("10+ ++<3");
-        }
+        public void TwoOperandsInARow() => TestFailure("15+3 2");
 
         [TestMethod]
-        public void DivisionByZero()
-        {
-            TestFailure("1/0");
-        }
+        public void UnaryFollowedByBinary() => TestFailure("10+ ++<3");
+
+        [TestMethod]
+        public void DivisionByZero() => TestFailure("1/0");
+
+        [TestMethod]
+        public void UnknownOperation() => TestFailure("7$");
     }
 }

@@ -52,6 +52,11 @@ namespace ExpressionParser.Evaluator.Tokens
         /// </summary>
         public int Value { get; }
 
+        /// <summary>
+        ///     Determines whether the specified object is equal to the current object
+        /// </summary>
+        /// <returns>true if the specified object  is equal to the current object; otherwise, false</returns>
+        /// <param name="other">The object to compare with the current object</param>
         protected bool Equals(NumericToken other) => Value == other.Value;
 
         /// <summary>

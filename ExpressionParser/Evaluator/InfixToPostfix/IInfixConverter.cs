@@ -11,8 +11,6 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
         /// <summary>
         ///     Converts from infix notation to postfix notation
         /// </summary>
-        /// <param name="infixTokens"></param>
-        /// <returns></returns>
         IEnumerable<Token> Convert(IEnumerable<Token> infixTokens);
     }
 }

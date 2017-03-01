@@ -6,22 +6,35 @@ using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser.Evaluator
 {
+    /// <summary>
+    ///     Evaluates an infix expression
+    /// </summary>
     internal class Evaluator : IEvaluator
     {
         private readonly IInfixConverter _converter;
         private readonly ITokenizer _tokenizer;
 
+        /// <summary>
+        ///     Instantiates a new expression evaluator with the specified dependencies
+        /// </summary>
         public Evaluator(IInfixConverter converter, ITokenizer tokenizer)
         {
             _converter = converter;
             _tokenizer = tokenizer;
         }
 
+        /// <summary>
+        ///     Evaluates the specified infix expression
+        /// </summary>
+        /// <param name="expression">The infix expression to evaluate</param>
+        /// <returns>The result of the expression</returns>
+        /// <exception cref="EvaluationException">If the expression is invalid</exception>
         public int Evaluate(string expression)
         {
             var tokens = _tokenizer.GetTokens(expression);
             var postfixTokens = _converter.Convert(tokens);
             var operands = new Stack<Token>();
+            
             foreach (var token in postfixTokens)
             {
                 if (token is NumericToken)
@@ -30,7 +43,7 @@ namespace ExpressionParser.Evaluator
                 }
                 else if (token is OperatorToken)
                 {
-                    Evaluate((OperatorToken)token, operands);
+                    operands.Push(Evaluate((OperatorToken)token, operands));
                 }
             }
 
@@ -50,7 +63,7 @@ namespace ExpressionParser.Evaluator
         /// <summary>
         ///     Performs the evaluation of the specified operator token
         /// </summary>
-        private static void Evaluate(OperatorToken token, Stack<Token> operands)
+        private static NumericToken Evaluate(OperatorToken token, Stack<Token> operands)
         {
             try
             {
@@ -59,7 +72,7 @@ namespace ExpressionParser.Evaluator
                 {
                     arguments[i] = (NumericToken)operands.Pop();
                 }
-                operands.Push(token.Value.Evaluate(arguments));
+                return token.Value.Evaluate(arguments);
             }
             catch (InvalidOperationException e) when (!operands.Any())
             {

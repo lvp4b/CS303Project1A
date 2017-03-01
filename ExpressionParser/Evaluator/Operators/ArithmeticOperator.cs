@@ -26,7 +26,7 @@ namespace ExpressionParser.Evaluator.Operators
 
             public override int Precedence => 6;
 
-            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l * r;
+            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l*r;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace ExpressionParser.Evaluator.Operators
             {
                 try
                 {
-                    return l/r;
+                    return l / r;
                 }
                 catch (ArithmeticException e)
                 {

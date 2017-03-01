@@ -31,12 +31,13 @@ namespace ExpressionParser.Evaluator.Tokens
             var tokens = new List<Token>();
             var index = 0;
 
+            // Read tokens until the end of the expression
             while (index < expression.Length)
             {
                 var token = ReadToken(expression, index);
                 if (token == null)
                 {
-                    throw new InvalidOperationException($"Syntax error: '{expression.Substring(index)}' is unknown");
+                    throw new EvaluationException($"Syntax error: '{expression.Substring(index)}' is unknown @ char: {index}");
                 }
 
                 tokens.Add(token);
@@ -46,10 +47,15 @@ namespace ExpressionParser.Evaluator.Tokens
             return ConvertSubtractionToUnaryMinus(tokens);
         }
 
+        /// <summary>
+        ///     Reads a single token from the expression
+        /// </summary>
         private Token ReadToken(string expression, int index)
         {
             Token token = null;
             var length = 1;
+
+            // Find the largest consumable token in the input that matches a single token
             while (index + length <= expression.Length)
             {
                 var value = expression.Substring(index, length);
@@ -72,6 +78,9 @@ namespace ExpressionParser.Evaluator.Tokens
             return token;
         }
 
+        /// <summary>
+        ///     Convert subtraction operators to negation
+        /// </summary>
         private static IEnumerable<Token> ConvertSubtractionToUnaryMinus(IEnumerable<Token> tokens)
         {
             var result = new Stack<Token>();
@@ -81,6 +90,7 @@ namespace ExpressionParser.Evaluator.Tokens
             {
                 result.Push(token);
 
+                // If the last token read is numeric, and this is a subtraction, convert to negation
                 if ((token as OperatorToken)?.Value is ArithmeticOperator.SubtractOperator
                     && !lastTokenIsNumeric)
                 {

@@ -23,12 +23,12 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <summary>
         ///     Gets the 0-based character index of the start of the token in the expression
         /// </summary>
+        [CanBeNull]
         public int? Index { get; }
 
         /// <summary>
         ///     Gets the length, in characters of the token
         /// </summary>
-        [CanBeNull]
         public int Length { get; }
 
         /// <summary>

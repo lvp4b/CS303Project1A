@@ -13,6 +13,7 @@ namespace ExpressionParser.Evaluator.Operators
 
         public override int Operands => 1;
 
+        // Disambiguates between arithmetic subtraction
         public override string ToString() => "NEG";
 
         internal override NumericToken Evaluate(NumericToken[] operands) => -operands[0];
