@@ -29,7 +29,7 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
                 {
                     var operatorToken = (OperatorToken)token;
                     while (operators.Any() && operatorToken.Value.Precedence
-                        <= (operators.Peek() as OperatorToken)?.Value.Precedence)
+                        < (operators.Peek() as OperatorToken)?.Value.Precedence)
                     {
                         postfixTokens.Add(operators.Pop());
                     }
@@ -64,7 +64,7 @@ namespace ExpressionParser.Evaluator.InfixToPostfix
                 }
                 postfixTokens.Add(token);
             }
-
+            
             return postfixTokens;
         }
     }

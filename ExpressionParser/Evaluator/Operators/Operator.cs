@@ -18,7 +18,7 @@ namespace ExpressionParser.Evaluator.Operators
         /// <summary>
         ///     Gets the number of operands used by the operator
         /// </summary>
-        protected abstract int Operands { get; }
+        public abstract int Operands { get; }
 
         /// <summary>
         ///     Evaluates this operator using the specified operands
@@ -27,12 +27,12 @@ namespace ExpressionParser.Evaluator.Operators
         /// <returns>The result of the operation</returns>
         internal NumericToken Evaluate(Stack<Token> operands)
         {
-            var argument = new NumericToken[Operands];
+            var arguments = new NumericToken[Operands];
             for (var i = 0; i < Operands; i++)
             {
-                argument[i] = (NumericToken) operands.Pop();
+                arguments[i] = (NumericToken) operands.Pop();
             }
-            return Evaluate(argument);
+            return Evaluate(arguments);
         }
 
         /// <summary>

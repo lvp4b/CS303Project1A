@@ -47,7 +47,7 @@
         /// <summary>
         ///     Gets the value of the numeric token
         /// </summary>
-        public new int Value { get; }
+        public int Value { get; }
 
         protected bool Equals(NumericToken other) => Value == other.Value;
 
@@ -67,7 +67,7 @@
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => $"NumericToken[{Value}]";
+        public override string ToString() => $"Numeric[{Value}]";
 
         /// <summary>
         ///     Provides numeric tokens

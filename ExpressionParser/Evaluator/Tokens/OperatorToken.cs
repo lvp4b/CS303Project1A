@@ -28,7 +28,7 @@ namespace ExpressionParser.Evaluator.Tokens
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => $"OperatorToken[{Value}]";
+        public override string ToString() => $"Operator[{Value}]";
 
         /// <summary>
         ///     Provides operator tokens
@@ -43,7 +43,18 @@ namespace ExpressionParser.Evaluator.Tokens
             /// <param name="operators">The operators to support with this provider</param>
             public Provider(IEnumerable<Operator> operators)
             {
-                _operators = operators.ToDictionary(@operator => @operator.Symbol);
+                _operators = new Dictionary<string, Operator>();
+                foreach (var @operator in operators)
+                {
+                    if (!_operators.ContainsKey(@operator.Symbol))
+                    {
+                       _operators.Add(@operator.Symbol, @operator); 
+                    }
+                    else if (_operators[@operator.Symbol].Precedence > @operator.Precedence)
+                    {
+                        _operators[@operator.Symbol] = @operator;
+                    }
+                }
             }
 
             /// <summary>

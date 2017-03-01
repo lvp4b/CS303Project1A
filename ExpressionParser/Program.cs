@@ -16,7 +16,7 @@ namespace ExpressionParser
                 container.Install(FromAssembly.This());
 
                 var evaluator = container.Resolve<IEvaluator>();
-
+                
                 Console.WriteLine($"[{string.Join(", ", evaluator.Evaluate(Console.ReadLine()))}]");
                 Console.ReadLine();
                 

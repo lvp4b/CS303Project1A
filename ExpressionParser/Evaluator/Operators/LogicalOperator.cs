@@ -7,7 +7,7 @@ namespace ExpressionParser.Evaluator.Operators
     /// </summary>
     internal abstract class LogicalOperator : Operator
     {
-        protected override int Operands => 2;
+        public override int Operands => 2;
 
         protected abstract NumericToken Evaluate(NumericToken l, NumericToken r);
 
@@ -25,7 +25,7 @@ namespace ExpressionParser.Evaluator.Operators
 
             public override int Precedence => 8;
 
-            protected override int Operands => 1;
+            public override int Operands => 1;
 
             protected override NumericToken Evaluate(NumericToken[] operands) => !operands[0];
         }

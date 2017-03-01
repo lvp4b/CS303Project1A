@@ -153,6 +153,22 @@ namespace ExpressionParser.Test
         public void EmptyString() => Test("", 0);
 
         [TestMethod]
+        public void SubtractionVsNegation()
+        {
+            Test("1-3", -2);
+            Test("1 - -2", 3);
+            Test("-4", -4);
+            Test("(4-2)-3", -1);
+            Test("(4- -2)-3", 3);
+            Test("(-4 - -2) - 3", -5);
+            Test("1 - -(3)", 4);
+            Test("1 - (-3)", 4);
+            Test("-(1+3)", -4);
+            Test("-1 - -3", 2);
+            Test("1 - -3", 4);
+        }
+
+        [TestMethod]
         public void ProjectExamples()
         {
             Test("1+2*3", 7);

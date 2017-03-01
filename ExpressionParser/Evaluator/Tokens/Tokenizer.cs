@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExpressionParser.Evaluator.Operators;
 
 namespace ExpressionParser.Evaluator.Tokens
 {
@@ -27,7 +28,7 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <returns>A new enumerable containing the tokens of the input expression</returns>
         public IEnumerable<Token> GetTokens(string expression)
         {
-            var tokens = new Stack<Token>();
+            var tokens = new List<Token>();
             var index = 0;
 
             while (index < expression.Length)
@@ -38,11 +39,11 @@ namespace ExpressionParser.Evaluator.Tokens
                     throw new InvalidOperationException($"Syntax error: '{expression.Substring(index)}' is unknown");
                 }
 
-                tokens.Push(token);
+                tokens.Add(token);
                 index += token.Length;
             }
 
-            return tokens;
+            return ConvertSubtractionToUnaryMinus(tokens);
         }
 
         private Token ReadToken(string expression, int index)
@@ -69,6 +70,34 @@ namespace ExpressionParser.Evaluator.Tokens
                 length++;
             }
             return token;
+        }
+
+        private static IEnumerable<Token> ConvertSubtractionToUnaryMinus(IEnumerable<Token> tokens)
+        {
+            var result = new Stack<Token>();
+
+            var lastTokenIsNumeric = false;
+            foreach (var token in tokens)
+            {
+                result.Push(token);
+
+                if ((token as OperatorToken)?.Value is ArithmeticOperator.SubtractOperator
+                    && !lastTokenIsNumeric)
+                {
+                    result.Pop();
+                    result.Push(new OperatorToken(new NegationOperator()));
+                }
+                else if (token is NumericToken)
+                {
+                    lastTokenIsNumeric = true;
+                }
+                else if (token is OperatorToken)
+                {
+                    lastTokenIsNumeric = false;
+                }
+            }
+
+            return result;
         }
     }
 }

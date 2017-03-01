@@ -19,7 +19,7 @@
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => $"ParenthesisToken[{Value}]";
+        public override string ToString() => $"Parenthesis[{Value}]";
 
         /// <summary>
         ///     Provides operator tokens

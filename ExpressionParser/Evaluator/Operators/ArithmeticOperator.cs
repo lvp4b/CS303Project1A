@@ -1,5 +1,4 @@
-﻿using System;
-using ExpressionParser.Evaluator.Tokens;
+﻿using ExpressionParser.Evaluator.Tokens;
 
 namespace ExpressionParser.Evaluator.Operators
 {
@@ -8,7 +7,7 @@ namespace ExpressionParser.Evaluator.Operators
     /// </summary>
     internal abstract class ArithmeticOperator : Operator
     {
-        protected override int Operands => 2;
+        public override int Operands => 2;
 
         protected abstract NumericToken Evaluate(NumericToken l, NumericToken r);
         
@@ -27,18 +26,6 @@ namespace ExpressionParser.Evaluator.Operators
             public override int Precedence => 6;
 
             protected override NumericToken Evaluate(NumericToken l, NumericToken r) => l * r;
-        }
-
-        /// <summary>
-        ///     Represents the power operation
-        /// </summary>
-        internal class PowerOperator : ArithmeticOperator
-        {
-            public override string Symbol => "^";
-
-            public override int Precedence => 7;
-
-            protected override NumericToken Evaluate(NumericToken l, NumericToken r) => (int) Math.Pow(l , r);
         }
 
         /// <summary>

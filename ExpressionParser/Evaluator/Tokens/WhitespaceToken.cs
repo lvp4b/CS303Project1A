@@ -17,7 +17,7 @@
         ///     Returns a string that represents the current object
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => "WhitespaceToken";
+        public override string ToString() => "Whitespace";
 
         /// <summary>
         ///     Provides whitespace tokens

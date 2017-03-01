@@ -17,20 +17,21 @@ namespace ExpressionParser.Evaluator
 
         public int Evaluate(string expression)
         {
-            var tokens = new Stack<Token>();
-
-            foreach (var token in _converter.Convert(_tokenizer.GetTokens(expression)))
+            var tokens = _tokenizer.GetTokens(expression);
+            var postfixTokens = _converter.Convert(tokens);
+            var stack = new Stack<Token>();
+            foreach (var token in postfixTokens)
             {
                 if (token is NumericToken)
                 {
-                    tokens.Push(token);
+                    stack.Push(token);
                 }
                 else if (token is OperatorToken)
                 {
-                    tokens.Push(((OperatorToken) token).Value.Evaluate(tokens));
+                    stack.Push(((OperatorToken) token).Value.Evaluate(stack));
                 }
             }
-            return (NumericToken) tokens.Pop();
+            return (NumericToken) stack.Pop();
         }
     }
 }

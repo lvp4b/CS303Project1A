@@ -66,6 +66,8 @@
     <Compile Include="Evaluator\Operators\LogicalOperator.cs" />
     <Compile Include="Evaluator\Operators\Operator.cs" />
     <Compile Include="Evaluator\Operators\OperatorInstaller.cs" />
+    <Compile Include="Evaluator\Operators\NegationOperator.cs" />
+    <Compile Include="Evaluator\Operators\PowerOperator.cs" />
     <Compile Include="Evaluator\Operators\PrefixOperator.cs" />
     <Compile Include="Evaluator\Tokens\ITokenizer.cs" />
     <Compile Include="Evaluator\Tokens\NumericToken.cs" />

@@ -7,7 +7,7 @@ namespace ExpressionParser.Evaluator.Operators
     /// </summary>
     internal abstract class PrefixOperator : Operator
     {
-        protected override int Operands => 1;
+        public override int Operands => 1;
 
         protected abstract NumericToken Evaluate(NumericToken r);
 
