@@ -1,4 +1,10 @@
-﻿using System;
+﻿// Lia Vang
+// CS 303
+// lvp4b@mail.umkc.edu
+// February 28, 2017
+// Project 1A
+
+using System;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
