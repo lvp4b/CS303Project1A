@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace ExpressionParser.Evaluator.Tokens
+﻿namespace ExpressionParser.Evaluator.Tokens
 {
     /// <summary>
     ///     Represents a numeric token
@@ -12,15 +10,32 @@ namespace ExpressionParser.Evaluator.Tokens
         /// </summary>
         /// <param name="index">The 0-based index in the expression of the first character of the token</param>
         /// <param name="value">The value of the numeric token</param>
-        public NumericToken(string value, [CanBeNull] int? index = null) : base(value.Length, index)
+        public NumericToken(string value, int index) : base(value.Length, index)
         {
-            Value = int.Parse(value);
+            int val;
+            if (int.TryParse(value, out val))
+            {
+                Value = val;
+            }
+            else
+            {
+                throw new EvaluationException($"Input number '{value}' is out of range @ char: {index}");
+            }
+        }
+
+        /// <summary>
+        ///     Instantiates a numeric token using the specified value
+        /// </summary>
+        /// <param name="value">The value of the numeric token</param>
+        private NumericToken(int value) : base(value.ToString().Length, null)
+        {
+            Value = value;
         }
 
         /// <summary>
         ///     Implicitly converts the specified boolean value into a numeric token
         /// </summary>
-        public static implicit operator NumericToken(bool value) => new NumericToken(value ? "1" : "0");
+        public static implicit operator NumericToken(bool value) => new NumericToken(value ? 1 : 0);
 
         /// <summary>
         ///     Implicitly converts the specified numeric token into a boolean value
@@ -30,7 +45,7 @@ namespace ExpressionParser.Evaluator.Tokens
         /// <summary>
         ///     Implicitly converts the specified integer into a numeric token
         /// </summary>
-        public static implicit operator NumericToken(int value) => new NumericToken(value.ToString());
+        public static implicit operator NumericToken(int value) => new NumericToken(value);
 
         /// <summary>
         ///     Implicitly converts the specified numeric token into an integer

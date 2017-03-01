@@ -22,6 +22,7 @@ namespace ExpressionParser
                 ShowSamples(evaluator, "2+2^2*3", "(1+2)*3", "1+3 > 2");
 
                 // Check out the unit tests in ExpressionParser.Test
+                // Run them using Test > Run > All Tests
                 while (true)
                 {
                     try
